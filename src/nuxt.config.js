@@ -6,10 +6,10 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - portfolio',
-    title: 'portfolio',
+    titleTemplate: `%s - ${process.env.SITE_TITLE}`,
+    title: process.env.SITE_TITLE,
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
@@ -37,6 +37,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/composition-api/module',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -64,5 +65,18 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  axios: {
+    baseURL: process.env.API_URL,
+  },
+
+  publicRuntimeConfig: {
+    siteTitle: process.env.SITE_TITLE,
+  },
+
+  generate: {
+    crawler: true,
+    fallback: true, // 不明なパスへのアクセス時もNuxtコンポーネントで解決
+  },
 }
